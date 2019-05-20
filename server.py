@@ -1,10 +1,19 @@
+# For templating.
 from jinja2 import StrictUndefined
+# To instantiate app, enable communications between front &
+# back ends, process info from forms, make requests, create sessions and jsonify
+# python dictionaries for javascript and html.
 from flask import (Flask, redirect, render_template, request, session, jsonify,
                    flash)
-from flash_debugtoolbar import DebugToolbarExtension
+# To debug app.
+from flask_debugtoolbar import DebugToolbarExtension
+# To make API requests.
 import requests
+# To use secret keys.
 import os
+# For functions that pic randomly from arrays.
 import random
+# For pause for UX design. 
 import time
 
 # API keys.
@@ -12,3 +21,26 @@ forsquare_client_id = os.enviorn.get("FORSQUARE_CLIENT_ID")
 forsquare_client_secret = os.enviorn.get("FORSQUARE_CLIENT_SECRET")
 google_api_key = os.enviorn.get("GOOGLE_API_KEY")
 
+# Instantiate Flask app.
+app = Flask(__name__)
+
+# For debugging.
+app.jinja_env.undefined = StrictUndefined
+app.jinja_env.auto_reload = True
+app.secret_key = "ABC"
+
+# For raising errors to prevent app failing silently.
+app.jinja_env.undefined = StrictUndefined
+
+@app.route("/")
+def index():
+
+    return "Hello";
+
+
+################################################################################
+# Run app at command line.
+if __name__ == "__main__":
+    # For debugging.
+    app.debug = True
+    app.run(host="0.0.0.0")
