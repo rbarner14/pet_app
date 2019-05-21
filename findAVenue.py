@@ -22,6 +22,10 @@ def getGeocodeLocation(inputString):
     # Request url and make the response a json that Python can read.
     r = requests.get(url).json()
 
+    longitude = r["results"][0]["geometry"]
+
+    return (longitude,latitude)
+
 
 
 def findAVenue(location):
