@@ -81,7 +81,9 @@ def process_login():
 def show_users(user):
     """Show users on platform in HTML format."""
 
-    return render_template("users.html");
+    users = User.query.all()
+
+    return render_template("users.html", users=users);
 
 
 # @app.route("/users.json")
@@ -99,7 +101,9 @@ def show_users(user):
 def show_profile(user_id):
     """Show user's profile."""
 
-    return redirect(f"/profile/{user_id}")
+    user = User.query.get(user_id)
+
+    return render_template("user.html", user=user)
 
 
 ################################################################################

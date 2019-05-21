@@ -3,13 +3,13 @@
 {% block login %}{% endblock %}
 
 {% block content %}
-<form id="login-form" action="/login" methods="POST">
+<form id="login-form" action="/login" method="POST">
   <div class="row">
     <div class="col">
-      <input type="text" class="form-control" placeholder="Username" name="username">
+      <input type="text" class="form-control" placeholder="Username" name="username" required>
     </div>
     <div class="col">
-      <input type="text" class="form-control" placeholder="Password" name="password">
+      <input type="text" class="form-control" placeholder="Password" name="password" required>
     </div>
   </div>
 </form>
