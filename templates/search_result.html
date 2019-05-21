@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}BringSpot - Search Result{% endblock %}
+
+{% block content %}
+
+{% if matched_venue %}
+    <img src="{{ matched_venue.img_url }}" width="50" height="50">
+    {{ matched_venue.name }}, {{ matched_venue.address }}
+    
+{% elif %}
+    
+    <img src="{{ img_url }}">
+    {{ name }}, {{ address }}
+
+{% endif }
+
+
+{% endblock %}

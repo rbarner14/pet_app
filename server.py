@@ -16,6 +16,8 @@ import os
 import random
 # For pause for UX design. 
 import time
+# For Google & Forsquare API calls.
+from findAVenue import findAVenue
 
 # API keys.
 forsquare_client_id = os.environ.get("FORSQUARE_CLIENT_ID")
@@ -150,6 +152,37 @@ def show_profile(user_id):
     user = User.query.get(user_id)
 
     return render_template("user_profile.html", user=user)
+
+
+@app.route("/search_result", methods=["POST"])
+def show_search_result():
+
+    location = request.form["location"]
+
+    venue = findAVenue(location)
+    
+    name = venue.get("name", "")
+    img_url = venue.get("img_url", "")
+    address = venue.get("address","")
+
+    matched_venue = Venue.query.filter_by(img_url=img_url).first()
+
+    if not venue:
+        flash("No result for that location.  Try, 'San Francisco, CA'.")
+        return redirect("/")
+
+    if matched_venue:
+
+        return render_template("search_result.html", matched_venue=matched_venue)
+    else:
+        if img_url: 
+            new_venue = Venue(name=name, address=address, img_url=img_url)
+        
+        db.session.add(new_venue)
+        db.session.commit()
+
+        return render_template("search_result.html", name=name, img_url=img_url,
+                                address=address)
 
 
 ################################################################################
