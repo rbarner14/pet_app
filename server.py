@@ -107,8 +107,11 @@ def show_profile(user_id):
 if __name__ == "__main__":
     # For debugging.
     app.debug = True
+
+    connect_to_db(app)
+
+    DebugToolbarExtension(app)
+
     app.run(host="0.0.0.0")
 
 
-
-    
