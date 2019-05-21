@@ -85,7 +85,7 @@ def login():
 
 @app.route("/login", methods=["POST"]) # Why post if only referencing DB?
 def process_login():
-    """Process login ."""
+    """Process login."""
 
     username = request.form["username"]
     password = request.form["password"]
@@ -108,15 +108,14 @@ def process_login():
 
 @app.route("/logout")
 def logout():
+    """Log out user from session."""
 
     if session.get("user_id"):
         del session["user_id"]
 
         flash("Logged out.")
 
-        return redirect("/")
-    else:
-        return
+    return redirect("/")
 
 
 @app.route("/users")
@@ -126,6 +125,22 @@ def show_users():
     users = User.query.all()
 
     return render_template("users.html", users=users);
+
+
+@app.route("/users.json")
+def show_users_json():
+    """Show users on platform in JSON format."""
+
+    users = User.query.all()
+    all_users = {}
+
+    for user in users:
+        all_users[user.username] = {
+            "id": user.user_id,
+            "name": f"{user.first_name} {user.last_name}"
+        }
+
+    return jsonify(all_users)
 
 
 @app.route("/users/<int:user_id>")

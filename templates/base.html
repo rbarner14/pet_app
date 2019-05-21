@@ -27,22 +27,26 @@
         <li class="nav-item">
           <a class="nav-link" href="/register">Register</a>
         </li>
+        {% if "user_id" not in session %}
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Log In</a>
+          </li>
+        {% endif %}
+        {% if "user_id" in session %}
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Log Out</a>
+          </li>
         <li class="nav-item">
-          <a class="nav-link" href="/login">Log In</a>
+          <a class="nav-link" href="/users/{{ session.user_id }}">My Profile</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/logout">Log Out</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/users">My Profile</a>
-        </li>
+        {% endif %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Owners
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="/users">HTML List</a>
-            <a class="dropdown-item" href="/users_json">JSON List</a>
+            <a class="dropdown-item" href="/users.json">JSON List</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#">My Friends</a>
           </div>
@@ -57,6 +61,11 @@
       </form>
     </div>
   </nav>
+
+  {% for flash in get_flashed_messages() %}
+    {{ flash }}
+  {% endfor %}
+
   {% block content%}PUT BODY HERE{% endblock %}
 
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->

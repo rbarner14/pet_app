@@ -3,9 +3,11 @@
 {% block title %}BringSpot - Dog Owners{% endblock %}
 
 {% block content %}
-  {% for user in users%}
-    <li>
-      <a href="/users/{{ user.user_id }}">{{ user.username }}</a>
-    </li>
-  {% endfor %}
+    {% if users %}
+      {% for user in users%}
+        <li>
+          <a href="/users/{{ user.user_id }}">{{ user.username }}</a>
+        </li>
+      {% endfor %}
+    {% endif %}
 {% endblock %}
