@@ -57,13 +57,13 @@ def login():
 def process_login():
     """Process login ."""
 
-    email = request.form["email"]
+    username = request.form["username"]
     password = request.password["password"]
 
-    user = User.query.filter_by(email=email).first()
+    user = User.query.filter_by(username=username).first()
 
     if not user:
-        flash("No user by that email is registered.")
+        flash("No user by that username is registered.")
         return redirect("/login")
     
     if password != user.password:
