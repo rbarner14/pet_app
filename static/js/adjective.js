@@ -1,8 +1,8 @@
-"use static";
+"use strict";
 
 function getRandomAdjective(response){
 
-    $("#random-adjective").text(response)
+    $("#random-adjective").text(response);
 }
 
-$.get("/adjective", getRandomAdjective)
+$.get("/adjective", getRandomAdjective);

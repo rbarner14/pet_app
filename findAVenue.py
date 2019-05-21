@@ -21,7 +21,7 @@ def getGeocodeLocation(inputString):
 
     # Request url and make the response a json that Python can read.
     r = requests.get(url).json()
-
+    
     latitude = r["results"][0]["geometry"]["location"]["lat"]
     longitude = r["results"][0]["geometry"]["location"]["lng"]
 
@@ -66,9 +66,7 @@ def findAVenue(location):
             suffix = firstpic["suffix"]
             img_url = f"{prefix}300x300{suffix}"
         else:
-            img_url = """https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2F
-                         images%2F38670528%2F108919755319%2F1%2Foriginal.jpg?
-                         auto=compress&s=32c728ebfab7bb7cab9cf42307962b37"""
+            img_url = "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F38670528%2F108919755319%2F1%2Foriginal.jpg?auto=compress&s=32c728ebfab7bb7cab9cf42307962b37"
 
         venue["img_url"] = img_url
 

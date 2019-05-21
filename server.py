@@ -48,6 +48,7 @@ def index():
 # jQuery components get their own routes.
 @app.route("/adjective")
 def get_random_adjective():
+    """Get random adjective from array defined above and pass to js."""
 
     # Added for dramatic effect.
     time.sleep(2)
@@ -88,6 +89,30 @@ def process_register():
         flash("User successfully registered!")
 
         return redirect("/login")
+
+
+@app.route("/register.json", methods=["POST"])
+def validate_user():
+    """Determine if user is registered or not first."""
+
+    email = request.form.get("email")
+    username = request.form.get("username")
+    password = request.form.get("password")
+    first_name = request.form.get("first_name")
+    last_name = request.form.get("last_name")
+
+    user = User.query.filter_by(email=email).first()
+
+    if user:
+        result_text = "A user with that email is already registered."
+    else:
+        result_text = "User successfully registered!"
+        new_user = User(email=email, username=username, password=password, 
+                        first_name=first_name, last_name=last_name)
+        db.session.add(new_user)
+        db.session.commit()
+
+    return jsonify({"msg": result_text})
 
 
 @app.route("/login", methods=["GET"])
@@ -197,6 +222,12 @@ def show_search_result():
 
         return render_template("search_result.html", name=name, img_url=img_url,
                                 address=address, matched_venue=matched_venue)
+
+
+@app.route("/jquery_fun")
+def show_jquery_experiments():
+    
+    return render_template("jquery_fun.html")
 
 
 ################################################################################
