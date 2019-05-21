@@ -1,9 +1,6 @@
 To Dos
 - Sketch db relationships
 - SQLDBM DB
-- Create login form
-- Create registration form
-- Create routes
 - Incorporate JS & jQuery
 - Style
 - Create seed.py

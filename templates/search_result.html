@@ -4,16 +4,16 @@
 
 {% block content %}
 
-{% if matched_venue %}
-    <img src="{{ matched_venue.img_url }}" width="50" height="50">
-    {{ matched_venue.name }}, {{ matched_venue.address }}
-    
-{% elif %}
-    
-    <img src="{{ img_url }}">
-    {{ name }}, {{ address }}
+    {% if matched_venue %}
+        <img src="{{ matched_venue.img_url }}" width="300" height="300">
+        {{ matched_venue.name }}, {{ matched_venue.address }}
+        
+    {% else %}
+        
+        <img src="{{ img_url }}" width="300" height="300">
+        {{ name }}, {{ address }}
 
-{% endif %}
+    {% endif %}
 
 
 {% endblock %}

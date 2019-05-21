@@ -18,11 +18,9 @@ def getGeocodeLocation(inputString):
 
     # Want results back in a JSON.  Adding API key and input string to query."
     url = f"https://maps.googleapis.com/maps/api/geocode/json?address={city}&key={google_api_key}"
-    print(url)
 
     # Request url and make the response a json that Python can read.
     r = requests.get(url).json()
-    print(r)
 
     latitude = r["results"][0]["geometry"]["location"]["lat"]
     longitude = r["results"][0]["geometry"]["location"]["lng"]
@@ -74,7 +72,6 @@ def findAVenue(location):
 
         venue["img_url"] = img_url
 
-        print(venue)
         return venue
     else:
 

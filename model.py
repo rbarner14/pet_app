@@ -17,7 +17,7 @@ class Venue(db.Model):
     def __repr__(self):
         """Provide helpful representation of Venue instance when printed."""
 
-        return f"<Venue venue_id={self.venue_id} name={self.name}"
+        return f"<Venue venue_id={self.venue_id} name={self.name}>"
 
 class User(db.Model):
     """A user(referred by app as owner) on platform."""

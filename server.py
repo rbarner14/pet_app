@@ -166,8 +166,9 @@ def show_search_result():
     address = venue.get("address","")
 
     matched_venue = Venue.query.filter_by(img_url=img_url).first()
+    print(matched_venue)
 
-    if venue != "No matching venues.":
+    if venue == "No matching venues.":
         flash("No result for that location.  Try, 'San Francisco, CA'.")
         return redirect("/")
 
@@ -175,6 +176,7 @@ def show_search_result():
 
         return render_template("search_result.html", matched_venue=matched_venue)
     else:
+        matched_venue = None
         if img_url: 
             new_venue = Venue(name=name, address=address, img_url=img_url)
         
@@ -182,7 +184,7 @@ def show_search_result():
         db.session.commit()
 
         return render_template("search_result.html", name=name, img_url=img_url,
-                                address=address)
+                                address=address, matched_venue=matched_venue)
 
 
 ################################################################################
