@@ -38,6 +38,38 @@ def index():
     return render_template("homepage.html");
 
 
+@app.route("/register")
+def show_registration_form():
+
+    return render_template("register.html")
+
+
+@app.route("/login")
+def show_login():
+
+    return render_template("login.html")
+
+
+@app.route("/users")
+def show_users():
+
+    return render_template("users.html");
+
+
+# @app.route("/users.json")
+# def show_users():
+
+#     users = {
+
+#     }
+
+#     return jsonify(users);
+
+
+@app.route("/profile/<int:id>")
+def show_profile():
+
+    return render_template("profile.html")
 
 
 ################################################################################
