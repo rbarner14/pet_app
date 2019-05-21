@@ -17,9 +17,9 @@ import random
 import time
 
 # API keys.
-forsquare_client_id = os.enviorn.get("FORSQUARE_CLIENT_ID")
-forsquare_client_secret = os.enviorn.get("FORSQUARE_CLIENT_SECRET")
-google_api_key = os.enviorn.get("GOOGLE_API_KEY")
+forsquare_client_id = os.environ.get("FORSQUARE_CLIENT_ID")
+forsquare_client_secret = os.environ.get("FORSQUARE_CLIENT_SECRET")
+google_api_key = os.environ.get("GOOGLE_API_KEY")
 
 # Instantiate Flask app.
 app = Flask(__name__)
@@ -35,7 +35,9 @@ app.jinja_env.undefined = StrictUndefined
 @app.route("/")
 def index():
 
-    return "Hello";
+    return render_template("homepage.html");
+
+
 
 
 ################################################################################
