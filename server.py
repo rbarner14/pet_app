@@ -160,14 +160,14 @@ def show_search_result():
     location = request.form["location"]
 
     venue = findAVenue(location)
-    
+
     name = venue.get("name", "")
     img_url = venue.get("img_url", "")
     address = venue.get("address","")
 
     matched_venue = Venue.query.filter_by(img_url=img_url).first()
 
-    if not venue:
+    if venue != "No matching venues.":
         flash("No result for that location.  Try, 'San Francisco, CA'.")
         return redirect("/")
 
