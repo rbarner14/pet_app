@@ -36,11 +36,23 @@ app.secret_key = "ABC"
 # For raising errors to prevent app failing silently.
 app.jinja_env.undefined = StrictUndefined
 
+ADJECTIVES = ["great", "fantabulous", "fantastic", "smashing", "ballerific"]
+
 @app.route("/")
 def index():
     """Show homepage."""
 
     return render_template("homepage.html");
+
+
+# jQuery components get their own routes.
+@app.route("/adjective")
+def get_random_adjective():
+
+    # Added for dramatic effect.
+    time.sleep(2)
+
+    return random.choice(ADJECTIVES)
 
 
 @app.route("/register", methods=["GET"])
