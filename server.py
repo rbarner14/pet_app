@@ -7,6 +7,7 @@ from flask import (Flask, redirect, render_template, request, session, jsonify,
                    flash)
 # To debug app.
 from flask_debugtoolbar import DebugToolbarExtension
+from model import User, Venue, Rating, connect_to_db, db
 # To make API requests.
 import requests
 # To use secret keys.
@@ -34,30 +35,58 @@ app.jinja_env.undefined = StrictUndefined
 
 @app.route("/")
 def index():
+    """Show homepage."""
 
     return render_template("homepage.html");
 
 
-@app.route("/register")
-def show_registration_form():
+@app.route("/register", methods=["GET"])
+def registration_form():
+    """Show registration form."""
 
     return render_template("register.html")
 
 
-@app.route("/login")
-def show_login():
+@app.route("/login", methods=["GET"])
+def login():
+    """Show login form."""
 
     return render_template("login.html")
 
+@app.route("/login", methods=["POST"])
+def process_login():
+    """Process login ."""
+
+    email = request.form["email"]
+    password = request.password["password"]
+
+    user = User.query.filter_by(email=email).first()
+
+    if not user:
+        flash("No user by that email is registered.")
+        return redirect("/login")
+    
+    if password != user.password:
+        flash("Incorrect password.")
+        return redirect("/login")
+
+    session["user_id"] = user.user_id
+
+    flash(f"Welcome back, {user.name}")
+
+    return redirect(f"/profile/{user_id}")
+
 
 @app.route("/users")
-def show_users():
+def show_users(user):
+    """Show users on platform in HTML format."""
 
     return render_template("users.html");
 
 
 # @app.route("/users.json")
 # def show_users():
+#     """Show users on platform in JSON format."""
 
 #     users = {
 
@@ -66,10 +95,11 @@ def show_users():
 #     return jsonify(users);
 
 
-@app.route("/profile/<int:id>")
-def show_profile():
+@app.route("/users/<int:user_id>")
+def show_profile(user_id):
+    """Show user's profile."""
 
-    return render_template("profile.html")
+    return redirect(f"/profile/{user_id}")
 
 
 ################################################################################
