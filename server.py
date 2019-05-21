@@ -28,6 +28,7 @@ app = Flask(__name__)
 # For debugging.
 app.jinja_env.undefined = StrictUndefined
 app.jinja_env.auto_reload = True
+app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 app.secret_key = "ABC"
 
 # For raising errors to prevent app failing silently.
@@ -47,18 +48,47 @@ def registration_form():
     return render_template("register.html")
 
 
+@app.route("/register", methods=["POST"])
+def process_register():
+    """Process registration."""
+
+    email = request.form["email"]
+    username = request.form["username"]
+    password = request.form["password"]
+    first_name = request.form["first_name"]
+    last_name = request.form["last_name"]
+
+    user = User.query.filter_by(email=email).first()
+
+    if user:
+        flash("A user with that email is already registered.")
+        
+        return redirect("/register")
+    else:
+        new_user = User(first_name=first_name, last_name=last_name, 
+                        username=username, email=email, password=password)
+        
+        db.session.add(new_user)
+        db.session.commit()
+
+        flash("User successfully registered!")
+
+        return redirect("/login")
+
+
 @app.route("/login", methods=["GET"])
 def login():
     """Show login form."""
 
     return render_template("login.html")
 
-@app.route("/login", methods=["POST"])
+
+@app.route("/login", methods=["POST"]) # Why post if only referencing DB?
 def process_login():
     """Process login ."""
 
     username = request.form["username"]
-    password = request.password["password"]
+    password = request.form["password"]
 
     user = User.query.filter_by(username=username).first()
 
@@ -72,29 +102,30 @@ def process_login():
 
     session["user_id"] = user.user_id
 
-    flash(f"Welcome back, {user.name}")
+    flash(f"Welcome back, {user.first_name}")
 
-    return redirect(f"/profile/{user_id}")
+    return redirect(f"/users/{user.user_id}")
+
+@app.route("/logout")
+def logout():
+
+    if session.get("user_id"):
+        del session["user_id"]
+
+        flash("Logged out.")
+
+        return redirect("/")
+    else:
+        return
 
 
 @app.route("/users")
-def show_users(user):
+def show_users():
     """Show users on platform in HTML format."""
 
     users = User.query.all()
 
     return render_template("users.html", users=users);
-
-
-# @app.route("/users.json")
-# def show_users():
-#     """Show users on platform in JSON format."""
-
-#     users = {
-
-#     }
-
-#     return jsonify(users);
 
 
 @app.route("/users/<int:user_id>")
@@ -103,7 +134,7 @@ def show_profile(user_id):
 
     user = User.query.get(user_id)
 
-    return render_template("user.html", user=user)
+    return render_template("user_profile.html", user=user)
 
 
 ################################################################################
