@@ -2,4 +2,26 @@
 
 {% block title %}BringSpot - {{ user.username }}'s Profile{% endblock %}
 
-{% block content %}My Saved Places My Friends{% endblock %}
+{% block content %}My Saved Places My Friends
+<div class="container">
+  <header>
+    <h1>My Shopping List</h1>
+  </header>
+  
+  <!--   Key Section of App    -->
+  <form class="list-content">
+    
+    <label>
+      <input type="text" class="item-input">
+    </label>
+    
+    <ul class="shopping-list">
+<!--           <li>Sample Item</li> -->
+    </ul>
+    
+    <button class="add-item">Add Item</button>
+  
+  </form>
+      
+<script src="/static/js/client.js"></script>
+{% endblock %}
