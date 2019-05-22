@@ -5,15 +5,29 @@
 {% block title %}BringSpot - Login{% endblock %}
 
 {% block content %}
-<form id="login-form" action="/login" method="POST">
-  <div class="row">
-    <div class="col">
-      <input type="text" class="form-control" placeholder="Username" name="username" required>
+<!-- Left side of page -->
+<div class="split left">
+    <!-- Center content in left div. -->
+    <div class="centered">
+        Hello.
     </div>
-    <div class="col">
-      <input type="password" class="form-control" placeholder="Password" name="password" required>
+</div>
+
+<!-- Right side of page -->
+<div class="split right">
+    <!-- Center content (form) in right div. -->
+    <div class="centered">
+        <form id="login-form" action="/login" method="POST">
+<!--           <div class="row"> -->
+            <div class="col" id="login-username">
+              <input type="text" class="form-control" placeholder="Username" name="username" required>
+            </div>
+            <div class="col" id="login-password">
+              <input type="password" class="form-control" placeholder="Password" name="password" required>
+            </div>
+<!--           </div> -->
+          <button type="submit" class="btn btn-outline-success">Submit</button>
+        </form>
     </div>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+</div>
 {% endblock %}
