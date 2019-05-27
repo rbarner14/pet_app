@@ -1,1 +1,2 @@
 #BringSpot
+Foursquare & Google API
